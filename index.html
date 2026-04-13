@@ -1,0 +1,617 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+.app{padding:1rem 0}
+.nav{display:flex;gap:0;border-bottom:0.5px solid var(--color-border-tertiary);margin-bottom:1.5rem;overflow-x:auto}
+.ntab{padding:8px 13px;font-size:12px;cursor:pointer;border:none;background:none;color:var(--color-text-secondary);border-bottom:2px solid transparent;margin-bottom:-0.5px;font-family:var(--font-sans);white-space:nowrap}
+.ntab.on{color:var(--color-text-primary);border-bottom-color:var(--color-text-primary);font-weight:500}
+.ntab:hover:not(.on){color:var(--color-text-primary)}
+.pg{display:none}.pg.on{display:block}
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:12px;padding:1rem 1.25rem;margin-bottom:12px}
+.mc{background:var(--color-background-secondary);border-radius:8px;padding:.75rem 1rem;text-align:center}
+.mv{font-size:19px;font-weight:500;color:var(--color-text-primary);line-height:1.2}
+.ml{font-size:11px;color:var(--color-text-secondary);margin-top:3px}
+.g2{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.g4{display:grid;grid-template-columns:repeat(auto-fit,minmax(100px,1fr));gap:8px}
+.g5{display:grid;grid-template-columns:repeat(auto-fit,minmax(85px,1fr));gap:8px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.fg{margin-bottom:10px}
+label{font-size:12px;color:var(--color-text-secondary);display:block;margin-bottom:3px}
+input[type=text],input[type=number],input[type=url],select,textarea{font-family:var(--font-sans);font-size:13px;padding:7px 10px;border:0.5px solid var(--color-border-secondary);border-radius:8px;background:var(--color-background-primary);color:var(--color-text-primary);width:100%}
+input:focus,select:focus,textarea:focus{outline:none;box-shadow:0 0 0 2px var(--color-border-primary)}
+.btn{padding:6px 14px;border:0.5px solid var(--color-border-secondary);border-radius:8px;background:none;color:var(--color-text-primary);font-size:12px;cursor:pointer;font-family:var(--font-sans)}
+.btn:hover{background:var(--color-background-secondary)}
+.btn-p{background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary)}
+.btn-p:hover{opacity:.85;background:var(--color-text-primary)}
+.btn-sm{padding:4px 10px;font-size:11px}
+.btn-danger{border-color:#E24B4A;color:#791F1F}
+.btn-danger:hover{background:#FCEBEB}
+.badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;font-weight:500;white-space:nowrap}
+.bb{background:#E6F1FB;color:#0C447C}
+.bt{background:#E1F5EE;color:#085041}
+.ba{background:#FAEEDA;color:#633806}
+.bc{background:#FAECE7;color:#712B13}
+.bg{background:#EAF3DE;color:#27500A}
+.bp{background:#EEEDFE;color:#3C3489}
+.bz{background:#F1EFE8;color:#444441}
+.br{background:#FCEBEB;color:#791F1F}
+.dv{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:10px 0}
+h3{font-size:15px;font-weight:500;color:var(--color-text-primary)}
+h4{font-size:13px;font-weight:500;color:var(--color-text-primary)}
+.muted{font-size:12px;color:var(--color-text-secondary)}
+.progress{height:5px;border-radius:3px;background:var(--color-border-tertiary);overflow:hidden}
+.pf{height:100%;border-radius:3px}
+table{width:100%;border-collapse:collapse;font-size:12px;table-layout:fixed}
+th{text-align:left;padding:7px 8px;font-weight:500;color:var(--color-text-secondary);border-bottom:0.5px solid var(--color-border-tertiary);font-size:11px}
+td{padding:7px 8px;border-bottom:0.5px solid var(--color-border-tertiary);color:var(--color-text-primary);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+tr:last-child td{border-bottom:none}
+.save-indicator{font-size:11px;color:var(--color-text-secondary);padding:3px 8px;border-radius:20px;background:var(--color-background-secondary);transition:all .3s}
+.save-indicator.saved{color:#27500A;background:#EAF3DE}
+.steps{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin:8px 0}
+.step{padding:3px 9px;border-radius:14px;font-size:11px;font-weight:500}
+.arr{color:var(--color-text-secondary);font-size:12px}
+.utm-box{background:var(--color-background-secondary);border-radius:8px;padding:10px 12px;font-size:11px;font-family:monospace;word-break:break-all;color:var(--color-text-secondary);margin-top:6px}
+.ab-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px}
+.ab-v{background:var(--color-background-secondary);border-radius:8px;padding:10px}
+.kpi-step{border:0.5px solid var(--color-border-tertiary);border-radius:8px;padding:10px;margin-bottom:8px}
+.avatar{width:34px;height:34px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;flex-shrink:0}
+.star{color:#BA7517;font-size:12px}
+.export-bar{display:flex;gap:8px;align-items:center;padding:10px 0;margin-bottom:12px;border-bottom:0.5px solid var(--color-border-tertiary)}
+</style>
+
+<div class="app">
+
+<div class="export-bar">
+  <span id="save-ind" class="save-indicator">Авто-сохранение</span>
+  <button class="btn btn-sm" onclick="exportData()">Экспорт JSON</button>
+  <button class="btn btn-sm" onclick="triggerImport()">Импорт JSON</button>
+  <input type="file" id="import-file" accept=".json" style="display:none" onchange="importData(event)">
+  <button class="btn btn-sm btn-danger" onclick="resetAll()">Сбросить всё</button>
+</div>
+
+<div class="nav">
+  <button class="ntab on"  onclick="G('funnels')">Воронки</button>
+  <button class="ntab" onclick="G('utm')">UTM</button>
+  <button class="ntab" onclick="G('romi')">ROMI</button>
+  <button class="ntab" onclick="G('kpi')">KPI</button>
+  <button class="ntab" onclick="G('ab')">A/B тесты</button>
+  <button class="ntab" onclick="G('products')">Продукты</button>
+</div>
+
+<div id="pg-funnels" class="pg on">
+  <div class="row" style="margin-bottom:12px">
+    <div><h3>Воронки</h3><div class="muted" style="margin-top:2px">Механики по проектам</div></div>
+    <button class="btn btn-sm btn-p" onclick="G('funnel-form');clearFunnelForm()">+ Новая</button>
+  </div>
+  <div id="funnels-list"></div>
+</div>
+
+<div id="pg-funnel-form" class="pg">
+  <div class="row" style="margin-bottom:14px"><h3 id="ff-title">Новая воронка</h3><button class="btn btn-sm" onclick="G('funnels')">← Назад</button></div>
+  <div class="card">
+    <input type="hidden" id="ff-id">
+    <div class="g2"><div class="fg"><label>Название</label><input id="ff-name" type="text" placeholder="Воронка Instagram — апрель"></div><div class="fg"><label>Проект</label><input id="ff-proj" type="text" placeholder="Онлайн-школа"></div></div>
+    <div class="fg"><label>Шаблон</label><select id="ff-tpl" onchange="applyFTpl()"><option value="">— выбрать —</option><option value="paid-tg">Таргет → Лид-магнит → Бот ТГ → Продажа</option><option value="reels">Рилс → Кодовое слово → Бот → Подписка</option><option value="webinar">Реклама → Вебинар → Продажа</option><option value="seo">SEO → Email → Продажа</option><option value="retarget">Ретаргет → Оффер → Продажа</option><option value="quiz">Квиз → Персональный оффер → Продажа</option></select></div>
+    <div class="fg"><label>Шаги (кликни × чтобы удалить)</label>
+      <div id="ff-steps" style="min-height:36px;padding:8px;border:0.5px dashed var(--color-border-secondary);border-radius:8px;display:flex;align-items:center;gap:5px;flex-wrap:wrap"></div>
+      <div id="ff-palette" style="display:flex;gap:5px;flex-wrap:wrap;margin-top:8px"></div>
+    </div>
+    <div class="g3"><div class="fg"><label>Цель</label><select id="ff-goal"><option>Продажа продукта</option><option>Подписка / лид</option><option>Вебинар</option><option>Заявка / звонок</option><option>Upsell</option></select></div><div class="fg"><label>Бюджет (₽)</label><input id="ff-budget" type="number" placeholder="50000"></div><div class="fg"><label>Плановый доход (₽)</label><input id="ff-rev" type="number" placeholder="200000"></div></div>
+    <div class="g2"><div class="fg"><label>Конверсия план (%)</label><input id="ff-conv" type="number" step="0.1" placeholder="3.5"></div><div class="fg"><label>Заметки</label><input id="ff-notes" type="text" placeholder="Гипотезы, аудитория..."></div></div>
+    <div style="display:flex;gap:8px"><button class="btn btn-p" onclick="saveFunnel()">Сохранить</button><button class="btn" onclick="clearFunnelForm()">Очистить</button></div>
+  </div>
+</div>
+
+<div id="pg-utm" class="pg">
+  <div class="row" style="margin-bottom:14px"><div><h3>UTM-генератор</h3><div class="muted">Генерируй и сохраняй ссылки</div></div></div>
+  <div class="card" style="margin-bottom:14px">
+    <div class="g2"><div class="fg"><label>Базовый URL</label><input id="u-url" type="url" placeholder="https://site.ru/landing" oninput="buildUtm()"></div><div class="fg"><label>utm_source</label><input id="u-src" type="text" placeholder="instagram" oninput="buildUtm()"></div></div>
+    <div class="g3"><div class="fg"><label>utm_medium</label><input id="u-med" type="text" placeholder="cpc" oninput="buildUtm()"></div><div class="fg"><label>utm_campaign</label><input id="u-camp" type="text" placeholder="spring_launch" oninput="buildUtm()"></div><div class="fg"><label>utm_content</label><input id="u-cont" type="text" placeholder="banner_v1" oninput="buildUtm()"></div></div>
+    <div class="fg"><label>utm_term</label><input id="u-term" type="text" placeholder="онлайн курс" oninput="buildUtm()"></div>
+    <div class="fg"><label>Готовая ссылка</label><div class="utm-box" id="utm-out">Заполни поля выше...</div>
+      <div style="margin-top:6px;display:flex;gap:8px"><button class="btn btn-sm" onclick="copyUtm()">Скопировать</button><button class="btn btn-sm" onclick="saveUtm()">Сохранить</button></div>
+    </div>
+  </div>
+  <h4 style="margin-bottom:10px">Сохранённые ссылки</h4>
+  <div class="card" style="padding:0;overflow:hidden"><div style="overflow-x:auto"><table>
+    <thead><tr><th style="width:28%">Название</th><th style="width:14%">Source</th><th style="width:14%">Medium</th><th style="width:20%">Campaign</th><th style="width:16%">Ссылка</th><th style="width:8%"></th></tr></thead>
+    <tbody id="utm-table"></tbody>
+  </table></div></div>
+</div>
+
+<div id="pg-romi" class="pg">
+  <div class="row" style="margin-bottom:14px"><div><h3>Расчёт ROMI</h3><div class="muted">По воронке или вручную</div></div></div>
+  <div class="card" style="margin-bottom:14px">
+    <div class="g2"><div class="fg"><label>Воронка</label><select id="r-funnel" onchange="fillFromFunnel()"><option value="">— вручную —</option></select></div><div class="fg"><label>Рекл. бюджет (₽)</label><input id="r-spend" type="number" placeholder="50000" oninput="calcRomi()"></div></div>
+    <div class="g3"><div class="fg"><label>Доп. расходы (₽)</label><input id="r-extra" type="number" placeholder="10000" oninput="calcRomi()"></div><div class="fg"><label>Выручка (₽)</label><input id="r-rev" type="number" placeholder="200000" oninput="calcRomi()"></div><div class="fg"><label>COGS (%)</label><input id="r-cogs" type="number" placeholder="30" oninput="calcRomi()"></div></div>
+    <div class="fg"><label>Лидов</label><input id="r-leads" type="number" placeholder="150" oninput="calcRomi()"></div>
+    <div class="g4">
+      <div class="mc"><div class="mv" id="m-romi">—</div><div class="ml">ROMI</div></div>
+      <div class="mc"><div class="mv" id="m-roi">—</div><div class="ml">ROI</div></div>
+      <div class="mc"><div class="mv" id="m-profit">—</div><div class="ml">Прибыль</div></div>
+      <div class="mc"><div class="mv" id="m-cpl">—</div><div class="ml">CPL</div></div>
+    </div>
+  </div>
+  <div class="card"><h4 style="margin-bottom:10px">Сравнение воронок</h4><div id="romi-cmp"></div></div>
+</div>
+
+<div id="pg-kpi" class="pg">
+  <div class="row" style="margin-bottom:14px">
+    <div><h3>KPI по шагам</h3><div class="muted">План и факт на каждый этап</div></div>
+    <select id="kpi-sel" onchange="renderKpi()" style="font-size:12px;padding:5px 8px;width:auto"><option value="">— выбрать воронку —</option></select>
+  </div>
+  <div id="kpi-content"><div style="text-align:center;padding:2rem;color:var(--color-text-secondary);font-size:13px">Выберите воронку выше</div></div>
+</div>
+
+<div id="pg-ab" class="pg">
+  <div class="row" style="margin-bottom:14px"><div><h3>A/B гипотезы</h3><div class="muted">Тесты и статусы</div></div><button class="btn btn-sm btn-p" onclick="showAbForm()">+ Добавить</button></div>
+  <div id="ab-form" style="display:none" class="card">
+    <h4 style="margin-bottom:12px">Новая гипотеза</h4>
+    <div class="g2"><div class="fg"><label>Название</label><input id="ab-name" type="text" placeholder="CTA кнопка: цвет vs текст"></div><div class="fg"><label>Воронка</label><select id="ab-funnel"></select></div></div>
+    <div class="g3"><div class="fg"><label>Шаг воронки</label><input id="ab-step" type="text" placeholder="Лендинг"></div><div class="fg"><label>Метрика</label><select id="ab-metric"><option>CTR</option><option>CR в заявку</option><option>CR в продажу</option><option>Open Rate</option><option>CPL</option><option>ROAS</option></select></div><div class="fg"><label>Выборка</label><input id="ab-sample" type="number" placeholder="1000"></div></div>
+    <div class="ab-row">
+      <div class="ab-v"><div style="font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:6px">A — контроль</div><input id="ab-a" type="text" placeholder="Текущий вариант" style="margin-bottom:6px"><input id="ab-av" type="number" placeholder="Текущее значение %" step="0.1"></div>
+      <div class="ab-v"><div style="font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:6px">B — тест</div><input id="ab-b" type="text" placeholder="Новый вариант" style="margin-bottom:6px"><input id="ab-bv" type="number" placeholder="Ожидаемое %" step="0.1"></div>
+    </div>
+    <div class="fg"><label>Гипотеза</label><textarea id="ab-hypo" rows="2" placeholder="Ожидаемый эффект..."></textarea></div>
+    <div style="display:flex;gap:8px"><button class="btn btn-p" onclick="saveAb()">Сохранить</button><button class="btn" onclick="document.getElementById('ab-form').style.display='none'">Отмена</button></div>
+  </div>
+  <div id="ab-list"></div>
+</div>
+
+<div id="pg-products" class="pg">
+  <div class="row" style="margin-bottom:12px">
+    <div><h3>Продукты</h3><div class="muted" style="margin-top:2px">Каталог и аналитика</div></div>
+    <div style="display:flex;gap:6px">
+      <select id="pcat-f" onchange="renderProducts()" style="font-size:12px;padding:5px 8px;width:auto"><option value="">Все</option><option>Курсы</option><option>Подписки</option><option>Консалтинг</option><option>Физ. товары</option><option>ПО</option><option>Прочее</option></select>
+      <button class="btn btn-sm btn-p" onclick="G('product-form');clearProdForm()">+ Добавить</button>
+    </div>
+  </div>
+  <div class="g5" style="margin-bottom:14px" id="prod-metrics"></div>
+  <div id="prod-list"></div>
+</div>
+
+<div id="pg-product-form" class="pg">
+  <div class="row" style="margin-bottom:14px"><h3 id="pf-title">Новый продукт</h3><button class="btn btn-sm" onclick="G('products')">← Назад</button></div>
+  <div class="card">
+    <input type="hidden" id="pf-id">
+    <div class="g2"><div class="fg"><label>Название</label><input id="pf-name" type="text" placeholder="Курс по маркетингу"></div><div class="fg"><label>Категория</label><select id="pf-cat"><option>Курсы</option><option>Подписки</option><option>Консалтинг</option><option>Физ. товары</option><option>ПО</option><option>Прочее</option></select></div></div>
+    <div class="fg"><label>Описание</label><textarea id="pf-desc" rows="2" placeholder="Для кого, какую проблему решает..."></textarea></div>
+    <div class="g3"><div class="fg"><label>Цена (₽)</label><input id="pf-price" type="number" placeholder="29900"></div><div class="fg"><label>Себестоимость (₽)</label><input id="pf-cost" type="number" placeholder="5000"></div><div class="fg"><label>Статус</label><select id="pf-status"><option>Активен</option><option>Черновик</option><option>Архив</option></select></div></div>
+    <div class="g3"><div class="fg"><label>Стадия</label><select id="pf-stage"><option>Разработка</option><option>Запуск</option><option>Рост</option><option>Зрелость</option><option>Спад</option></select></div><div class="fg"><label>Аудитория</label><input id="pf-aud" type="text" placeholder="Маркетологи 25–40"></div><div class="fg"><label>Продаж</label><input id="pf-sales" type="number" placeholder="0"></div></div>
+    <div class="g2"><div class="fg"><label>УТП</label><input id="pf-usp" type="text" placeholder="Единственный курс с гарантией"></div><div class="fg"><label>Конкуренты</label><input id="pf-comp" type="text" placeholder="Skillbox, Нетология"></div></div>
+    <div class="g2"><div class="fg"><label>Рейтинг (1–5)</label><input id="pf-rating" type="number" min="1" max="5" step="0.1" placeholder="4.5"></div><div class="fg"><label>Теги</label><input id="pf-tags" type="text" placeholder="онлайн, маркетинг"></div></div>
+    <div style="display:flex;gap:8px"><button class="btn btn-p" onclick="saveProd()">Сохранить</button><button class="btn" onclick="clearProdForm()">Очистить</button></div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const LS_KEY='pmtool_v2';
+const STEP_TYPES=[
+  {id:'ads',l:'Реклама',c:'bb'},{id:'reels',l:'Рилс',c:'bp'},{id:'seo',l:'SEO',c:'bp'},
+  {id:'retarget',l:'Ретаргет',c:'bb'},{id:'leadmag',l:'Лид-магнит',c:'bt'},
+  {id:'landing',l:'Лендинг',c:'bt'},{id:'keyword',l:'Кодовое слово',c:'ba'},
+  {id:'tgbot',l:'Бот ТГ',c:'bb'},{id:'wa',l:'WhatsApp',c:'bg'},
+  {id:'email',l:'Email-серия',c:'ba'},{id:'prewarm',l:'Прогрев',c:'ba'},
+  {id:'webinar',l:'Вебинар',c:'bp'},{id:'offer',l:'Оффер',c:'bc'},
+  {id:'sub',l:'Подписка',c:'bt'},{id:'qualify',l:'Квалификация',c:'bz'},
+  {id:'kp',l:'КП',c:'bc'},{id:'sale',l:'Продажа',c:'bg'},
+  {id:'upsell',l:'Upsell',c:'bg'},{id:'quiz',l:'Квиз',c:'ba'},{id:'reg',l:'Регистрация',c:'bt'},
+];
+const FTPLS={
+  'paid-tg':['ads','leadmag','tgbot','prewarm','offer','sale'],
+  'reels':['reels','keyword','tgbot','prewarm','sub'],
+  'webinar':['ads','reg','prewarm','webinar','offer','sale'],
+  'seo':['seo','landing','leadmag','email','sale'],
+  'retarget':['retarget','offer','sale'],
+  'quiz':['ads','quiz','tgbot','offer','sale'],
+};
+const KPI_DEF={
+  ads:{m:'CTR',p:'2',u:'%'},reels:{m:'Охват',p:'10000',u:''},seo:{m:'Трафик',p:'500',u:''},
+  retarget:{m:'CTR',p:'3',u:'%'},leadmag:{m:'CR в лид',p:'25',u:'%'},
+  landing:{m:'CR в заявку',p:'5',u:'%'},keyword:{m:'Ответов',p:'200',u:''},
+  tgbot:{m:'Подписок',p:'150',u:''},wa:{m:'Ответов',p:'80',u:'%'},
+  email:{m:'Open Rate',p:'25',u:'%'},prewarm:{m:'Дочитывание',p:'60',u:'%'},
+  webinar:{m:'Доходимость',p:'35',u:'%'},offer:{m:'CR в покупку',p:'8',u:'%'},
+  sub:{m:'Подписок',p:'100',u:''},qualify:{m:'Квал. лидов',p:'40',u:'%'},
+  kp:{m:'Отправлено КП',p:'20',u:''},sale:{m:'Конверсия',p:'3',u:'%'},
+  upsell:{m:'CR Upsell',p:'15',u:'%'},quiz:{m:'Прохождений',p:'60',u:'%'},reg:{m:'Регистраций',p:'300',u:''},
+};
+const STAGE_C={Разработка:'bz',Запуск:'bb',Рост:'bg',Зрелость:'bt',Спад:'ba'};
+const STATUS_C={Активен:'bg',Черновик:'ba',Архив:'bz'};
+
+const DEFAULT_DATA={
+  funnels:[
+    {id:1,name:'Instagram → Продажа курса',proj:'Онлайн-школа',steps:['ads','leadmag','tgbot','prewarm','offer','sale'],goal:'Продажа продукта',budget:60000,rev:240000,conv:4,notes:'Ж 25–40 лет',kpi:{},status:'active'},
+    {id:2,name:'Рилс → Подписка',proj:'Онлайн-школа',steps:['reels','keyword','tgbot','prewarm','sub'],goal:'Подписка / лид',budget:0,rev:0,conv:12,notes:'Органика',kpi:{},status:'active'},
+  ],
+  utms:[
+    {name:'IG Весенний запуск',src:'instagram',med:'cpc',camp:'spring_2025',url:'https://school.ru/landing?utm_source=instagram&utm_medium=cpc&utm_campaign=spring_2025'},
+  ],
+  abTests:[
+    {id:1,name:'CTA кнопка: цвет',funnel:1,step:'Лендинг',metric:'CTR',aDesc:'Серая',aVal:2.1,bDesc:'Синяя',bVal:2.8,hypo:'Синяя кнопка увеличит CTR на 15–20%',sample:2000,status:'running'},
+  ],
+  products:[
+    {id:1,name:'Курс «Перформанс-маркетинг»',cat:'Курсы',desc:'Для маркетологов. Полный цикл.',price:29900,cost:4000,status:'Активен',stage:'Рост',aud:'Маркетологи 25–40',sales:187,rating:4.8,usp:'Практика на реальных проектах',comp:'Skillbox, Нетология',tags:'маркетинг, онлайн'},
+    {id:2,name:'Подписка «Клуб маркетологов»',cat:'Подписки',desc:'Закрытый Telegram-клуб.',price:2900,cost:300,status:'Активен',stage:'Рост',aud:'Практикующие маркетологи',sales:412,rating:4.6,usp:'Живые разборы от экспертов',comp:'Boosty',tags:'подписка, сообщество'},
+    {id:3,name:'Консалтинг (1 месяц)',cat:'Консалтинг',desc:'Индивидуальная работа.',price:150000,cost:20000,status:'Активен',stage:'Зрелость',aud:'Владельцы бизнеса',sales:23,rating:4.9,usp:'Результат или деньги назад',comp:'Агентства',tags:'B2B, премиум'},
+  ],
+  nextId:100,
+};
+
+let D;
+
+function loadData(){
+  try{
+    const raw=localStorage.getItem(LS_KEY);
+    D=raw?JSON.parse(raw):JSON.parse(JSON.stringify(DEFAULT_DATA));
+  }catch(e){D=JSON.parse(JSON.stringify(DEFAULT_DATA));}
+}
+
+function save(){
+  try{
+    localStorage.setItem(LS_KEY,JSON.stringify(D));
+    const ind=document.getElementById('save-ind');
+    ind.textContent='Сохранено';ind.className='save-indicator saved';
+    setTimeout(()=>{ind.textContent='Авто-сохранение';ind.className='save-indicator';},2000);
+  }catch(e){}
+}
+
+function exportData(){
+  const blob=new Blob([JSON.stringify(D,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download='pmtool-backup-'+new Date().toISOString().slice(0,10)+'.json';
+  a.click();
+}
+function triggerImport(){document.getElementById('import-file').click();}
+function importData(e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{try{D=JSON.parse(ev.target.result);save();G('funnels');alert('Данные импортированы!');}catch(err){alert('Ошибка формата файла');}};
+  r.readAsText(f);
+  e.target.value='';
+}
+function resetAll(){
+  if(confirm('Удалить все данные и сбросить к демо? Это нельзя отменить.')){
+    localStorage.removeItem(LS_KEY);
+    D=JSON.parse(JSON.stringify(DEFAULT_DATA));
+    save();G('funnels');
+  }
+}
+
+function G(id){
+  const pages=['funnels','funnel-form','utm','romi','kpi','ab','products','product-form'];
+  const tabs=['funnels','utm','romi','kpi','ab','products'];
+  document.querySelectorAll('.ntab').forEach((b,i)=>{b.classList.toggle('on',tabs[i]===id)});
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  const el=document.getElementById('pg-'+id);if(el)el.classList.add('on');
+  if(id==='funnels')renderFunnels();
+  if(id==='utm')renderUtm();
+  if(id==='romi'){fillRomiFunnels();renderRomiCmp();}
+  if(id==='kpi'){fillKpiSel();renderKpi();}
+  if(id==='ab'){fillAbFunnels();renderAb();}
+  if(id==='products')renderProducts();
+}
+
+function gS(id){return STEP_TYPES.find(s=>s.id===id)||{id,l:id,c:'bz'};}
+
+let bSteps=[];
+function renderFPalette(){
+  document.getElementById('ff-palette').innerHTML=STEP_TYPES.map(s=>`<button class="btn btn-sm badge ${s.c}" onclick="addBS('${s.id}')" style="cursor:pointer;font-size:11px">+ ${s.l}</button>`).join('');
+  renderBSteps();
+}
+function addBS(id){bSteps.push(id);renderBSteps();}
+function renderBSteps(){
+  const el=document.getElementById('ff-steps');
+  if(!bSteps.length){el.innerHTML='<span style="font-size:12px;color:var(--color-text-secondary)">Выберите шаги</span>';return;}
+  el.innerHTML=bSteps.map((s,i)=>{const st=gS(s);return(i?'<span class="arr">›</span>':'')+'<span class="step '+st.c+'" style="cursor:pointer" onclick="removeBS('+i+')">'+st.l+' ×</span>';}).join('');
+}
+function removeBS(i){bSteps.splice(i,1);renderBSteps();}
+function applyFTpl(){const t=document.getElementById('ff-tpl').value;if(t&&FTPLS[t]){bSteps=[...FTPLS[t]];renderBSteps();}}
+function clearFunnelForm(){['ff-id','ff-name','ff-proj','ff-budget','ff-rev','ff-conv','ff-notes'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});document.getElementById('ff-tpl').value='';document.getElementById('ff-title').textContent='Новая воронка';bSteps=[];renderBSteps();}
+function saveFunnel(){
+  const name=document.getElementById('ff-name').value.trim();
+  const proj=document.getElementById('ff-proj').value.trim();
+  if(!name||!proj){alert('Заполни название и проект');return;}
+  if(!bSteps.length){alert('Добавь шаги');return;}
+  const eid=parseInt(document.getElementById('ff-id').value);
+  const data={name,proj,steps:[...bSteps],goal:document.getElementById('ff-goal').value,budget:parseInt(document.getElementById('ff-budget').value)||0,rev:parseInt(document.getElementById('ff-rev').value)||0,conv:parseFloat(document.getElementById('ff-conv').value)||0,notes:document.getElementById('ff-notes').value,status:'active'};
+  if(eid){const f=D.funnels.find(x=>x.id===eid);if(f){Object.assign(f,data);if(!f.kpi)f.kpi={};}}
+  else{D.funnels.push({id:D.nextId++,...data,kpi:{}});}
+  save();G('funnels');
+}
+function renderFunnels(){
+  const el=document.getElementById('funnels-list');
+  if(!D.funnels.length){el.innerHTML='<div style="text-align:center;padding:2rem;color:var(--color-text-secondary);font-size:13px">Нет воронок</div>';return;}
+  el.innerHTML=D.funnels.map(f=>{
+    const romi=f.budget&&f.rev?Math.round((f.rev-f.budget)/f.budget*100):null;
+    const rc=romi===null?'':romi>=200?'bg':romi>=50?'ba':'br';
+    return `<div class="card">
+      <div class="row" style="margin-bottom:8px">
+        <div style="flex:1"><h4>${f.name}</h4><div class="muted">${f.proj} · ${f.goal}</div></div>
+        <div style="display:flex;gap:5px">${romi!==null?`<span class="badge ${rc}">ROMI ${romi}%</span>`:''}<span class="badge ${f.status==='active'?'bg':'bz'}">${f.status==='active'?'Активна':'Пауза'}</span></div>
+      </div>
+      <div class="steps">${f.steps.map((s,i)=>{const st=gS(s);return(i?'<span class="arr">›</span>':'')+'<span class="step '+st.c+'">'+st.l+'</span>';}).join('')}</div>
+      <div class="g4" style="margin:8px 0">
+        <div class="mc"><div class="mv">${f.budget?f.budget.toLocaleString('ru')+'₽':'—'}</div><div class="ml">Бюджет</div></div>
+        <div class="mc"><div class="mv">${f.rev?f.rev.toLocaleString('ru')+'₽':'—'}</div><div class="ml">Доход план</div></div>
+        <div class="mc"><div class="mv">${f.conv||'—'}${f.conv?'%':''}</div><div class="ml">Конверсия</div></div>
+        <div class="mc"><div class="mv">${f.steps.length}</div><div class="ml">Шагов</div></div>
+      </div>
+      ${f.notes?`<div class="muted" style="margin-bottom:8px">${f.notes}</div>`:''}
+      <div class="dv"></div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="btn btn-sm" onclick="editFunnel(${f.id})">Редактировать</button>
+        <button class="btn btn-sm" onclick="toggleF(${f.id})">${f.status==='active'?'Пауза':'Возобновить'}</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteF(${f.id})">Удалить</button>
+        <button class="btn btn-sm" onclick="goKpi(${f.id})">KPI ↗</button>
+        <button class="btn btn-sm" onclick="sendPrompt('Улучши воронку: ${f.steps.map(s=>gS(s).l).join(' → ')}. Конверсия ${f.conv}%, проект ${f.proj}')">Улучшить ↗</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+function editFunnel(id){
+  const f=D.funnels.find(x=>x.id===id);if(!f)return;
+  document.getElementById('ff-id').value=f.id;
+  document.getElementById('ff-name').value=f.name;
+  document.getElementById('ff-proj').value=f.proj;
+  document.getElementById('ff-goal').value=f.goal;
+  document.getElementById('ff-budget').value=f.budget||'';
+  document.getElementById('ff-rev').value=f.rev||'';
+  document.getElementById('ff-conv').value=f.conv||'';
+  document.getElementById('ff-notes').value=f.notes||'';
+  document.getElementById('ff-title').textContent='Редактировать воронку';
+  bSteps=[...f.steps];
+  G('funnel-form');renderBSteps();
+}
+function toggleF(id){const f=D.funnels.find(x=>x.id===id);if(f)f.status=f.status==='active'?'paused':'active';save();renderFunnels();}
+function deleteF(id){if(confirm('Удалить воронку?')){D.funnels=D.funnels.filter(x=>x.id!==id);save();renderFunnels();}}
+function goKpi(id){fillKpiSel();document.getElementById('kpi-sel').value=id;G('kpi');renderKpi();}
+
+function buildUtm(){
+  const url=document.getElementById('u-url').value.trim();
+  const src=document.getElementById('u-src').value.trim();
+  const med=document.getElementById('u-med').value.trim();
+  const camp=document.getElementById('u-camp').value.trim();
+  const cont=document.getElementById('u-cont').value.trim();
+  const term=document.getElementById('u-term').value.trim();
+  if(!url){document.getElementById('utm-out').textContent='Введи URL...';return;}
+  const p=[];
+  if(src)p.push('utm_source='+encodeURIComponent(src));
+  if(med)p.push('utm_medium='+encodeURIComponent(med));
+  if(camp)p.push('utm_campaign='+encodeURIComponent(camp));
+  if(cont)p.push('utm_content='+encodeURIComponent(cont));
+  if(term)p.push('utm_term='+encodeURIComponent(term));
+  document.getElementById('utm-out').textContent=url+(url.includes('?')?'&':'?')+p.join('&');
+}
+function copyUtm(){
+  const t=document.getElementById('utm-out').textContent;
+  if(t&&!t.startsWith('Введи')&&!t.startsWith('Заполни')){
+    navigator.clipboard&&navigator.clipboard.writeText(t);
+    const b=event.target;b.textContent='Скопировано!';setTimeout(()=>b.textContent='Скопировать',1500);
+  }
+}
+function saveUtm(){
+  const url=document.getElementById('utm-out').textContent;
+  if(!url||url.startsWith('Введи')){alert('Сначала сгенерируй ссылку');return;}
+  D.utms.push({name:document.getElementById('u-camp').value||document.getElementById('u-src').value||'Ссылка',src:document.getElementById('u-src').value,med:document.getElementById('u-med').value,camp:document.getElementById('u-camp').value,url});
+  save();renderUtm();
+}
+function renderUtm(){
+  const t=document.getElementById('utm-table');
+  t.innerHTML=D.utms.length?D.utms.map((l,i)=>`<tr>
+    <td style="font-weight:500">${l.name}</td>
+    <td><span class="badge bb">${l.src||'—'}</span></td>
+    <td>${l.med||'—'}</td>
+    <td>${l.camp||'—'}</td>
+    <td><span style="font-size:11px;color:#185FA5;cursor:pointer;text-decoration:underline" onclick="navigator.clipboard&&navigator.clipboard.writeText('${l.url.replace(/'/g,"\\'")}');this.textContent='Скопировано!';setTimeout(()=>this.textContent='Копировать',1500)">Копировать</span></td>
+    <td><button class="btn btn-sm btn-danger" onclick="delUtm(${i})">×</button></td>
+  </tr>`).join(''):'<tr><td colspan="6" style="text-align:center;padding:1rem;color:var(--color-text-secondary)">Нет ссылок</td></tr>';
+}
+function delUtm(i){D.utms.splice(i,1);save();renderUtm();}
+
+function fillRomiFunnels(){
+  const el=document.getElementById('r-funnel');
+  el.innerHTML='<option value="">— вручную —</option>'+D.funnels.map(f=>`<option value="${f.id}">${f.name}</option>`).join('');
+}
+function fillFromFunnel(){
+  const id=parseInt(document.getElementById('r-funnel').value);
+  if(!id)return;
+  const f=D.funnels.find(x=>x.id===id);if(!f)return;
+  if(f.budget)document.getElementById('r-spend').value=f.budget;
+  if(f.rev)document.getElementById('r-rev').value=f.rev;
+  calcRomi();
+}
+function calcRomi(){
+  const spend=parseFloat(document.getElementById('r-spend').value)||0;
+  const extra=parseFloat(document.getElementById('r-extra').value)||0;
+  const rev=parseFloat(document.getElementById('r-rev').value)||0;
+  const cogs=parseFloat(document.getElementById('r-cogs').value)||0;
+  const leads=parseFloat(document.getElementById('r-leads').value)||0;
+  const total=spend+extra;
+  const gross=rev*(1-cogs/100);
+  const profit=gross-total;
+  const romi=total?Math.round((gross-total)/total*100):0;
+  const roi=total?Math.round(profit/total*100):0;
+  const cpl=leads?Math.round(total/leads):0;
+  const rc=romi>=200?'#27500A':romi>=50?'#633806':'#791F1F';
+  document.getElementById('m-romi').innerHTML=`<span style="color:${rc}">${romi}%</span>`;
+  document.getElementById('m-roi').textContent=roi+'%';
+  document.getElementById('m-profit').textContent=(profit>=0?'+':'')+Math.round(profit).toLocaleString('ru')+'₽';
+  document.getElementById('m-cpl').textContent=cpl?cpl.toLocaleString('ru')+'₽':'—';
+}
+function renderRomiCmp(){
+  const el=document.getElementById('romi-cmp');
+  const wd=D.funnels.filter(f=>f.budget&&f.rev);
+  if(!wd.length){el.innerHTML='<div class="muted">Добавьте бюджет и доход в воронки для сравнения</div>';return;}
+  const max=Math.max(...wd.map(f=>Math.round((f.rev-f.budget)/f.budget*100)));
+  el.innerHTML=wd.map(f=>{
+    const r=Math.round((f.rev-f.budget)/f.budget*100);
+    const pct=max?Math.max(0,Math.round(r/max*100)):0;
+    const c=r>=200?'#639922':r>=50?'#BA7517':'#E24B4A';
+    return `<div style="margin-bottom:10px"><div class="row" style="margin-bottom:3px"><span style="font-size:13px">${f.name}</span><span style="font-size:13px;font-weight:500;color:${c}">${r}%</span></div><div class="progress"><div class="pf" style="width:${pct}%;background:${c}"></div></div></div>`;
+  }).join('');
+}
+
+function fillKpiSel(){
+  const el=document.getElementById('kpi-sel');
+  el.innerHTML='<option value="">— выбрать —</option>'+D.funnels.map(f=>`<option value="${f.id}">${f.name}</option>`).join('');
+}
+function renderKpi(){
+  const id=parseInt(document.getElementById('kpi-sel').value);
+  const f=id?D.funnels.find(x=>x.id===id):null;
+  const el=document.getElementById('kpi-content');
+  if(!f){el.innerHTML='<div style="text-align:center;padding:2rem;color:var(--color-text-secondary);font-size:13px">Выберите воронку</div>';return;}
+  if(!f.kpi)f.kpi={};
+  el.innerHTML=f.steps.map((sid,i)=>{
+    const st=gS(sid);const def=KPI_DEF[sid]||{m:'Метрика',p:'',u:''};const kd=f.kpi[sid]||{};
+    const metric=kd.m||def.m;const plan=kd.p||def.p;const fact=kd.f||'';const unit=kd.u||def.u;
+    const pct=fact&&plan?Math.min(200,Math.round(parseFloat(fact)/parseFloat(plan)*100)):0;
+    const ok=parseFloat(fact)>=parseFloat(plan);
+    return `<div class="kpi-step">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <span style="background:var(--color-background-secondary);color:var(--color-text-secondary);border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:500;flex-shrink:0">${i+1}</span>
+        <span class="badge ${st.c}">${st.l}</span>
+        <span style="font-size:12px;font-weight:500">${metric}</span>
+        ${fact&&plan?`<span style="font-size:11px;font-weight:500;color:${ok?'#27500A':'#791F1F'};margin-left:auto">${pct}%</span>`:''}
+      </div>
+      <div class="g3">
+        <div class="fg"><label>Метрика</label><input type="text" value="${metric}" onchange="updKpi(${f.id},'${sid}','m',this.value)" style="font-size:12px"></div>
+        <div class="fg"><label>План${unit?' ('+unit+')':''}</label><input type="number" value="${plan}" step="0.1" onchange="updKpi(${f.id},'${sid}','p',this.value)" style="font-size:12px"></div>
+        <div class="fg"><label>Факт${unit?' ('+unit+')':''}</label><input type="number" value="${fact}" step="0.1" onchange="updKpi(${f.id},'${sid}','f',this.value);renderKpi()" style="font-size:12px"></div>
+      </div>
+      ${fact&&plan?`<div class="progress"><div class="pf" style="width:${Math.min(100,pct)}%;background:${ok?'#639922':'#E24B4A'}"></div></div>`:''}
+    </div>`;
+  }).join('')+`<div style="margin-top:8px"><button class="btn btn-sm" onclick="sendPrompt('Нормативные KPI для воронки: ${f.steps.map(s=>gS(s).l).join(' → ')}')">Нормативы ↗</button></div>`;
+}
+function updKpi(fid,sid,field,val){
+  const f=D.funnels.find(x=>x.id===fid);if(!f)return;
+  if(!f.kpi)f.kpi={};if(!f.kpi[sid])f.kpi[sid]={};
+  f.kpi[sid][field]=val;save();
+}
+
+function fillAbFunnels(){
+  const el=document.getElementById('ab-funnel');
+  el.innerHTML='<option value="">—</option>'+D.funnels.map(f=>`<option value="${f.id}">${f.name}</option>`).join('');
+}
+function showAbForm(){fillAbFunnels();document.getElementById('ab-form').style.display='block';}
+function saveAb(){
+  const name=document.getElementById('ab-name').value.trim();if(!name){alert('Введи название');return;}
+  D.abTests.push({id:D.nextId++,name,funnel:parseInt(document.getElementById('ab-funnel').value)||null,step:document.getElementById('ab-step').value,metric:document.getElementById('ab-metric').value,aDesc:document.getElementById('ab-a').value,aVal:parseFloat(document.getElementById('ab-av').value)||0,bDesc:document.getElementById('ab-b').value,bVal:parseFloat(document.getElementById('ab-bv').value)||0,hypo:document.getElementById('ab-hypo').value,sample:parseInt(document.getElementById('ab-sample').value)||0,status:'running'});
+  save();document.getElementById('ab-form').style.display='none';renderAb();
+}
+function setAbSt(id,s){const t=D.abTests.find(x=>x.id===id);if(t){t.status=s;save();renderAb();}}
+function deleteAb(id){if(confirm('Удалить тест?')){D.abTests=D.abTests.filter(x=>x.id!==id);save();renderAb();}}
+function renderAb(){
+  const el=document.getElementById('ab-list');
+  if(!D.abTests.length){el.innerHTML='<div style="text-align:center;padding:2rem;color:var(--color-text-secondary);font-size:13px">Нет тестов</div>';return;}
+  const SL={running:'ba',winner_a:'bg',winner_b:'bg',stopped:'bz'};
+  const ST={running:'Идёт',winner_a:'Победа A',winner_b:'Победа B',stopped:'Стоп'};
+  el.innerHTML=D.abTests.map(t=>{
+    const f=D.funnels.find(x=>x.id===t.funnel);
+    const lift=t.aVal?Math.round((t.bVal-t.aVal)/t.aVal*100):0;
+    return `<div class="card">
+      <div class="row" style="margin-bottom:8px">
+        <div><h4>${t.name}</h4><div class="muted">${f?f.name:'—'} · ${t.step} · ${t.metric}</div></div>
+        <div style="display:flex;gap:5px"><span class="badge ${lift>0?'bg':'ba'}">${lift>0?'+':''}${lift}%</span><span class="badge ${SL[t.status]||'bz'}">${ST[t.status]||t.status}</span></div>
+      </div>
+      <div class="ab-row">
+        <div class="ab-v" style="${t.status==='winner_a'?'border:1.5px solid #3B6D11':''}"><div style="font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:4px">A — контроль</div><div style="font-size:13px;font-weight:500;margin-bottom:4px">${t.aDesc}</div><div style="font-size:20px;font-weight:500">${t.aVal}%</div><div class="progress" style="margin-top:5px"><div class="pf" style="width:${Math.min(100,t.aVal*8)}%;background:#888780"></div></div></div>
+        <div class="ab-v" style="${t.status==='winner_b'?'border:1.5px solid #3B6D11':''}"><div style="font-size:11px;font-weight:500;color:var(--color-text-secondary);margin-bottom:4px">B — тест</div><div style="font-size:13px;font-weight:500;margin-bottom:4px">${t.bDesc}</div><div style="font-size:20px;font-weight:500">${t.bVal}%</div><div class="progress" style="margin-top:5px"><div class="pf" style="width:${Math.min(100,t.bVal*8)}%;background:${t.bVal>=t.aVal?'#639922':'#E24B4A'}"></div></div></div>
+      </div>
+      ${t.hypo?`<div class="muted" style="margin:6px 0">${t.hypo}</div>`:''}
+      <div class="dv"></div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        ${t.sample?`<span class="muted" style="margin-right:4px">n=${t.sample.toLocaleString('ru')}</span>`:''}
+        <button class="btn btn-sm" onclick="setAbSt(${t.id},'winner_a')">Победа A</button>
+        <button class="btn btn-sm" onclick="setAbSt(${t.id},'winner_b')">Победа B</button>
+        <button class="btn btn-sm" onclick="setAbSt(${t.id},'stopped')">Стоп</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteAb(${t.id})">Удалить</button>
+        <button class="btn btn-sm" onclick="sendPrompt('Интерпретируй A/B тест: ${t.name}. A=${t.aVal}%, B=${t.bVal}%, лифт ${lift}%, метрика ${t.metric}')">Интерпретация ↗</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderProducts(){
+  const catF=document.getElementById('pcat-f').value;
+  const items=catF?D.products.filter(p=>p.cat===catF):D.products;
+  const active=D.products.filter(p=>p.status==='Активен');
+  const totalRev=D.products.reduce((s,p)=>s+p.price*p.sales,0);
+  const avgM=active.length?Math.round(active.reduce((s,p)=>s+(p.price&&p.cost?(p.price-p.cost)/p.price*100:0),0)/active.length):0;
+  document.getElementById('prod-metrics').innerHTML=`
+    <div class="mc"><div class="mv">${D.products.length}</div><div class="ml">Продуктов</div></div>
+    <div class="mc"><div class="mv">${active.length}</div><div class="ml">Активных</div></div>
+    <div class="mc"><div class="mv">${D.products.reduce((s,p)=>s+p.sales,0).toLocaleString('ru')}</div><div class="ml">Продаж</div></div>
+    <div class="mc"><div class="mv">${(totalRev/1000).toFixed(0)}к₽</div><div class="ml">Выручка</div></div>
+    <div class="mc"><div class="mv">${avgM}%</div><div class="ml">Ср. маржа</div></div>`;
+  document.getElementById('prod-list').innerHTML=items.length?items.map(p=>{
+    const m=p.price&&p.cost?Math.round((p.price-p.cost)/p.price*100):0;
+    const mc=m>=60?'#27500A':m>=30?'#633806':'#791F1F';
+    const tags=p.tags?p.tags.split(',').map(t=>`<span class="badge bz" style="margin-right:3px;margin-bottom:3px">${t.trim()}</span>`).join(''):'';
+    const stars=p.rating?Array(5).fill(0).map((_,i)=>`<span class="star" style="opacity:${i<Math.floor(p.rating)?1:.25}">★</span>`).join('')+` <span class="muted">${p.rating.toFixed(1)}</span>`:'';
+    return `<div class="card">
+      <div class="row" style="margin-bottom:8px">
+        <h4>${p.name}</h4>
+        <div style="display:flex;gap:5px"><span class="badge ${STATUS_C[p.status]||'bz'}">${p.status}</span><span class="badge ${STAGE_C[p.stage]||'bz'}">${p.stage}</span></div>
+      </div>
+      ${p.desc?`<div class="muted" style="margin-bottom:8px">${p.desc}</div>`:''}
+      <div class="g5" style="margin-bottom:8px">
+        <div class="mc"><div class="mv">${p.price?p.price.toLocaleString('ru')+'₽':'—'}</div><div class="ml">Цена</div></div>
+        <div class="mc"><div class="mv" style="color:${mc}">${m}%</div><div class="ml">Маржа</div></div>
+        <div class="mc"><div class="mv">${p.sales||0}</div><div class="ml">Продаж</div></div>
+        <div class="mc"><div class="mv">${p.price&&p.sales?(p.price*p.sales/1000).toFixed(1)+'к₽':'—'}</div><div class="ml">Выручка</div></div>
+        <div class="mc"><div class="mv" style="font-size:12px">${stars||'—'}</div><div class="ml">Рейтинг</div></div>
+      </div>
+      ${p.usp?`<div style="margin-bottom:6px"><span class="badge bb" style="margin-right:4px">УТП</span><span style="font-size:12px">${p.usp}</span></div>`:''}
+      ${p.comp?`<div style="margin-bottom:6px"><span class="badge bz" style="margin-right:4px">Конкуренты</span><span class="muted">${p.comp}</span></div>`:''}
+      ${tags?`<div style="margin-bottom:4px">${tags}</div>`:''}
+      <div class="dv"></div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="btn btn-sm" onclick="editProd(${p.id})">Редактировать</button>
+        <button class="btn btn-sm" onclick="toggleProd(${p.id})">${p.status==='Архив'?'Восстановить':'В архив'}</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteProd(${p.id})">Удалить</button>
+        <button class="btn btn-sm" onclick="sendPrompt('Как увеличить продажи: ${p.name}, цена ${p.price}₽, продаж ${p.sales}, стадия ${p.stage}')">Как продавать ↗</button>
+      </div>
+    </div>`;
+  }).join(''):'<div style="text-align:center;padding:2rem;color:var(--color-text-secondary);font-size:13px">Нет продуктов</div>';
+}
+function clearProdForm(){['pf-id','pf-name','pf-desc','pf-price','pf-cost','pf-aud','pf-sales','pf-rating','pf-usp','pf-comp','pf-tags'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});document.getElementById('pf-title').textContent='Новый продукт';}
+function saveProd(){
+  const name=document.getElementById('pf-name').value.trim();if(!name){alert('Введи название');return;}
+  const eid=parseInt(document.getElementById('pf-id').value);
+  const data={name,cat:document.getElementById('pf-cat').value,desc:document.getElementById('pf-desc').value,price:parseFloat(document.getElementById('pf-price').value)||0,cost:parseFloat(document.getElementById('pf-cost').value)||0,status:document.getElementById('pf-status').value,stage:document.getElementById('pf-stage').value,aud:document.getElementById('pf-aud').value,sales:parseInt(document.getElementById('pf-sales').value)||0,rating:parseFloat(document.getElementById('pf-rating').value)||0,usp:document.getElementById('pf-usp').value,comp:document.getElementById('pf-comp').value,tags:document.getElementById('pf-tags').value};
+  if(eid){const p=D.products.find(x=>x.id===eid);if(p)Object.assign(p,data);}
+  else D.products.push({id:D.nextId++,...data});
+  save();G('products');
+}
+function editProd(id){
+  const p=D.products.find(x=>x.id===id);if(!p)return;
+  document.getElementById('pf-id').value=p.id;
+  document.getElementById('pf-name').value=p.name;
+  document.getElementById('pf-cat').value=p.cat;
+  document.getElementById('pf-desc').value=p.desc||'';
+  document.getElementById('pf-price').value=p.price||'';
+  document.getElementById('pf-cost').value=p.cost||'';
+  document.getElementById('pf-status').value=p.status;
+  document.getElementById('pf-stage').value=p.stage;
+  document.getElementById('pf-aud').value=p.aud||'';
+  document.getElementById('pf-sales').value=p.sales||'';
+  document.getElementById('pf-rating').value=p.rating||'';
+  document.getElementById('pf-usp').value=p.usp||'';
+  document.getElementById('pf-comp').value=p.comp||'';
+  document.getElementById('pf-tags').value=p.tags||'';
+  document.getElementById('pf-title').textContent='Редактировать продукт';
+  G('product-form');
+}
+function toggleProd(id){const p=D.products.find(x=>x.id===id);if(p){p.status=p.status==='Архив'?'Активен':'Архив';save();renderProducts();}}
+function deleteProd(id){if(confirm('Удалить продукт?')){D.products=D.products.filter(x=>x.id!==id);save();renderProducts();}}
+
+loadData();
+renderFunnels();
+renderFPalette();
+</script>
